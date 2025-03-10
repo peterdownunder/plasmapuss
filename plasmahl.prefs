@@ -56,13 +56,13 @@ Custom style = None
 1 Name = OHMIC\TEST
 1 Code = ohmic-test
 2 Name = PROBE\TEST
-2 Code = probe-test 10
+2 Code = probe-test 20
 3 Name = SINGLE\CUT
 3 Code = single-cut
 4 Name = NORMAL\CUT
 4 Code = cut-type
 5 Name = TORCH\PULSE
-5 Code = torch-pulse 0.5
+5 Code = torch-pulse 2.5
 6 Name = FRAMING
 6 Code = framing
 7 Name = USER\MANUAL
@@ -109,7 +109,7 @@ Disabled = #b0b0b0
 Preview = #000000
 
 [ENABLE_OPTIONS]
-THC enable = True
+THC enable = False
 Corner lock enable = True
 Void lock enable = False
 Use auto volts = True
@@ -124,10 +124,10 @@ Y axis = 0.0
 [STATISTICS]
 Cut time = 0.0
 Paused time = 0.0
-Probe time = 0.0
-Program run time = 0.0
+Probe time = 287.56
+Program run time = 316.83
 Torch on time = 0.0
-Rapid time = 0.0
+Rapid time = 26.01
 Cut length = 0.0
 Pierce count = 0
 
@@ -143,4 +143,14 @@ Delay = 0.0
 [SINGLE CUT]
 X length = 0.0
 Y length = 0.0
+
+[CONVERSATIONAL]
+Preamble = G21 G64P0.25 G40 G49 G80 G90 G92.1 G94 G97
+Postamble = G21 G64P0.25 G40 G49 G80 G90 G92.1 G94 G97
+Origin = 0
+Leadin = 0
+Leadout = 0
+Hole diameter = 32
+Hole speed = 60
+Grid Size = 0
 

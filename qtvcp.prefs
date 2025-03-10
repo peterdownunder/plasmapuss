@@ -1,6 +1,6 @@
 [DIALOG_GEOMETRY]
 AboutDialog-geometry = half
-LncMessage-geometry = default
+LncMessage-geometry = 910 539 500 266
 
 [DIALOG_OPTIONS]
 EntryDialog_play_sound = True
@@ -15,8 +15,8 @@ MachineLogDialog_play_sound = True
 MachineLogDialog_sound_type = READY
 
 [BOOK_KEEPING]
-last_loaded_directory = /home/cnc/linuxcnc/nc_files/examples
-RecentPath_0 = None
+last_loaded_directory = /home/cnc
+RecentPath_0 = /home/cnc/strar2.ngc
 style_QSS_Path = DEFAULT
 
 [SCREEN_OPTIONS]
@@ -27,7 +27,7 @@ desktop_notify = True
 notify_max_msgs = 10
 shutdown_check = False
 sound_player_on = False
-MainWindow-geometry = 233 152 1348 702
+MainWindow-geometry = 32 76 1348 702
 
 [MCH_MSG_OPTIONS]
 mchnMsg_play_sound = True
@@ -80,4 +80,5 @@ originoffsetview-G59.2 = User System 8
 originoffsetview-G59.3 = User System 9
 
 [FILEMANAGER_JUMPLIST]
+cnc = /home/cnc
 

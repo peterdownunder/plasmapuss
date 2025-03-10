@@ -8,7 +8,7 @@ loadrt [EMCMOT]EMCMOT base_period_nsec=[EMCMOT]BASE_PERIOD servo_period_nsec=[EM
 # loadrt pid names=pid.x,pid.x2,pid.y,pid.z,pid.s
 loadrt plasmac
 loadrt weeny
-loadrt not count=4
+loadrt not count=5
 
 addf motion-command-handler   servo-thread
 addf motion-controller        servo-thread
@@ -40,18 +40,18 @@ addf not.0 servo-thread
 addf not.1 servo-thread        
 addf not.2 servo-thread        
 addf not.3 servo-thread        
+addf not.4 servo-thread        
 
 
 
 # ---JOINT ASSOCIATED WITH THE Z AXIS---
-# net plasmac:axis-position joint.3.pos-fb => plasmac.axis-z-position
+net plasmac:axis-position joint.3.pos-fb => plasmac.axis-z-position
 
 # ---PLASMA INPUTS---
 # ---all modes---
-net plasmac:float-switch     => db_float.in
-net plasmac:breakaway        => db_breakaway.in
-net plasmac:ohmic-probe      => db_ohmic.in
-net plasmac:ohmic-sense-in   => plasmac.ohmic-sense-in
+# net plasmac:breakaway        => db_breakaway.in
+# net plasmac:ohmic-probe      => db_ohmic.in
+# net plasmac:ohmic-sense-in   => plasmac.ohmic-sense-in
 # ---modes 0 & 1
 net plasmac:arc-voltage-in   => plasmac.arc-voltage-in
 # ---modes 1 & 2
@@ -132,7 +132,7 @@ net x2-pos-cmd    <= joint.1.motor-pos-cmd    => weeny.joint.1.pos-cmd
 net x2-enable     <= joint.1.amp-enable-out   => weeny.joint.1.enable
 
 # ---setup home / limit switch signals---
-
+setp db_homex2.delay 100
 net invert-x2 not.3.in <= weeny.input.03
 net debx2 db_homex2.in <= not.3.out
 net home-x2 <= db_homex2.out
@@ -151,6 +151,7 @@ net y-pos-cmd    <= joint.2.motor-pos-cmd     => weeny.joint.2.pos-cmd
 net y-enable     <= joint.2.amp-enable-out    => weeny.joint.2.enable
 
 # ---setup home / limit switch signals---
+setp db_homey.delay 100
 net invert-y not.1.in <= weeny.input.01
 net deby db_homey.in <= not.1.out
 net home-y <= db_homey.out
@@ -170,6 +171,7 @@ net z-pos-cmd    <= joint.3.motor-pos-cmd     => weeny.joint.3.pos-cmd
 net z-enable     <= joint.3.amp-enable-out    => weeny.joint.3.enable
 
 # ---setup home / limit switch signals---
+setp db_homez.delay 100
 net invert-z not.0.in <= weeny.input.00
 net debz db_homez.in <= not.0.out
 net home-z <= db_homez.out
@@ -190,8 +192,15 @@ net user-enable-out 	<= iocontrol.0.user-enable-out
 net user-enable-out     => weeny.SPI-enable
 net user-request-enable <= iocontrol.0.user-request-enable	=> weeny.SPI-reset
 net weeny-status 	<= weeny.SPI-status 			=> iocontrol.0.emc-enable-in
-
+setp db_float.delay 100
+net float-invert not.4.in <= weeny.input.05 
+net plasmac:float-switch not.4.out  => db_float.in
+# net plasmac:float-switch-out <= db_float.out
 
 # ---QTPLASMAC TOOLCHANGE PASSTHROUGH---
 net tool:change iocontrol.0.tool-change  => iocontrol.0.tool-changed
 net tool:prep   iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+
+net plasmac:torch-on =>  weeny.rgb.led05.blue
+net plasmac:torch-on =>  weeny.output.00
+net plasmac:arc-ok-in <= weeny.input.06
